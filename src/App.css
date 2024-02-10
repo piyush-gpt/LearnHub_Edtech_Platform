@@ -1,0 +1,17 @@
+#shadow{
+    box-shadow: 0.5px 0.5px 6px wheat;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.homepage_bg{
+    background: url("../src/assets/Images/bghome.svg");
+}
+
+html,body{
+    overflow-x: hidden;
+}
