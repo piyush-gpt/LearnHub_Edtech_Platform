@@ -18,7 +18,7 @@ function EnrolledCourses() {
         getEnrolledCourses();
     },[]);
   return (
-    <div>
+    <div className=' text-white'>
     <div>EnrolledCourses</div>
     { ! enrolledCourses?(<div className=' flex h-full items-center justify-center'><span>Loading......</span></div>): ! enrolledCourses.length?(<p className=' text-white'>You have not enrolled in any course</p>):(
         <div>
@@ -28,7 +28,7 @@ function EnrolledCourses() {
                 <p>Progress</p>
             </div>
             {enrolledCourses.map((course,idx)=>{
-                <div>
+                return <div key={idx}>
                     <div>
                         <img src={course.thumbnail}/>
                         <div>

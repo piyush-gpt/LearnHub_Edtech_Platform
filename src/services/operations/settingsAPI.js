@@ -34,7 +34,7 @@ export function updateDisplayPicture(token, formData) {
       }
       toast.success("Display Picture Updated Successfully")
       dispatch(setUser(response.data.data))
-      localStorage.setItem("user",JSON.stringify(response.data.data));
+      // localStorage.setItem("user",JSON.stringify(response.data.data));
     } catch (error) {
       console.log("UPDATE_DISPLAY_PICTURE_API API ERROR............", error.message)
       toast.error("Could Not Update Display Picture")
@@ -60,7 +60,7 @@ export function updateProfile(token, formData) {
         : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.updatedProfile.firstName} ${response.data.updatedProfile.lastName}`
       dispatch(
         setUser({ ...response.data.updatedProfile, image: userImage }));
-        localStorage.setItem("user",JSON.stringify(response.data.updatedProfile));
+        // localStorage.setItem("user",JSON.stringify(response.data.updatedProfile));
       toast.success("Profile Updated Successfully")
     } catch (error) {
       console.log("UPDATE_PROFILE_API API ERROR............", error.message)

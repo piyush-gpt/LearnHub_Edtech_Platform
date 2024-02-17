@@ -1,8 +1,8 @@
 const instance  =require( "../config/razorpay");
 const {Course}  =require( "../models/Course");
 const {User}  =require( "../models/User");
-const mailSender  =require( "../utils/mailSender");
-
+const mongoose = require("mongoose")
+const  {mailSender} = require("../utils/mailSender");
 // capture payment and initiate order of razorpay
 exports. capturePayment=async(req,res)=>{
     //get courseId and UserID
@@ -19,7 +19,7 @@ exports. capturePayment=async(req,res)=>{
     //valid courseDetail
     let course;
     try{
-        course = await Course.findBy (course_id);
+        course = await Course.findById (course_id);
         if(!course) {
             return res.json ({
             success: false,
@@ -27,7 +27,7 @@ exports. capturePayment=async(req,res)=>{
             });
     I}
     //user already pay for the same course
-    const uid = new mongoose. Typs.ObjectId(userId); 
+    const uid = new mongoose.Types.ObjectId(userId); 
     if (course.studentsEnrolled.includes (uid)) {
         return res.status (500).json ({
         success: false,
@@ -37,43 +37,78 @@ exports. capturePayment=async(req,res)=>{
     }
     catch(error) {
         console.error(error);
-        return res.static(500).json({
+        return res.status(500).json({
         success:false,
         message:error.message
         })
     }
     // fetch order
 
-    const amount=course.price;
-    const currency="INR";
-    const options={
-        amount:amount*100,
-        currency,
-        receipt:Math.random(Date.now()).toString(),
-        notes:{
-            courseId:course_id,
-            userId
-        }
-    }
+    // const amount=course.price;
+    // const currency="INR";
+    // const options={
+    //     amount:amount*100,
+    //     currency,
+    //     receipt:Math.random(Date.now()).toString(),
+    //     notes:{
+    //         courseId:course_id,
+    //         userId
+    //     }
+    // }
+    // try{
+    //     // initiate payment using razorpay
+    //     const paymentResponse=instance.orders.create(options);
+    //     console.log(paymentResponse);
+    //     return res.status(200).json({
+    //         success:true,
+    //         courseName:course.courseName,
+    //         courseDescription:course.courseDescription,
+    //         thumbnail:course.thumbnail,
+    //         orderId:paymentResponse.id,
+    //         currency:paymentResponse.currceny,
+    //         amount:paymentResponse.amount
+    //     })
+    // }
+    // catch(e){
+    //     console.log(e);
+    //     return res.json({
+    //         success:false,
+    //         message:"Could not initiate order"
+    //     })
+    // }
     try{
-        // initiate payment using razorpay
-        const paymentResponse=instance.orders.create(options);
-        console.log(paymentResponse);
+        const enrolledCourse=await Course.findByIdAndUpdate({_id:course_id},{
+            $push:{
+                studentsEnrolled:userId
+            }
+        },{new:true});
+        if(!enrolledCourse){
+            return res.status(500).json({
+                success:false,
+                message:"course not found"
+            })
+        }
+        console.log(enrolledCourse);
+    //     // find user and add the course in the list of courses enrolled
+        const enrolledStudent=await User.findByIdAndUpdate({_id:userId},{
+            $push:{
+                courses:course_id,
+            }
+        },{new:true})
+        console.log(enrolledStudent);
+
+    //     // send a mail
+        const emailResponse=await mailSender(enrolledStudent.email,"Congratulations from LearnHub", "Congratulations, you are enrolled into new LearHub course, Happy Learning")
+
         return res.status(200).json({
             success:true,
-            courseName:course.courseName,
-            courseDescription:course.courseDescription,
-            thumbnail:course.thumbnail,
-            orderId:paymentResponse.id,
-            currency:paymentResponse.currceny,
-            amount:paymentResponse.amount
+            message:"Course added"
         })
     }
     catch(e){
-        console.log(e);
-        return res.json({
+        return res.status(500).json({
             success:false,
-            message:"Could not initiate order"
+            message:e.message
         })
     }
 }
@@ -93,7 +128,7 @@ exports. verifySignature=async(req,res)=>{
 
         const{userId, courseId}=req.body.payload.payment.entity.notes;
         try{
-            const enrolledCourse=await Course.findByIdAndUpdate({_id:courseId},{
+            const enrolledCourse=await Course.findByIdAndUpdate({_id:course_id},{
                 $push:{
                     studentsEnrolled:userId
                 }
@@ -108,7 +143,7 @@ exports. verifySignature=async(req,res)=>{
             // find user and add the course in the list of courses enrolled
             const enrolledStudent=await User.findByIdAndUpdate({_id:userId},{
                 $push:{
-                    courses:courseId,
+                    courses:course_id,
                 }
             },{new:true})
             console.log(enrolledStudent);
