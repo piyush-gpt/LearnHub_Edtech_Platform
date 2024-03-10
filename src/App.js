@@ -15,6 +15,7 @@ import Dashboard from "./pages/Dashboard";
 import Settings from "./components/core/Dashboard/settings/Settings";
 import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses";
 import Cart from "./components/core/Dashboard/Cart/Cart";
+import AddCourse from "./components/core/Dashboard/addCourse/AddCourse";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUserDetails } from "./services/operations/profileAPI";
@@ -29,7 +30,6 @@ function App() {
       const token = JSON.parse(localStorage.getItem("token"))
       dispatch(getUserDetails(token, navigate))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <div className=" w-screen min-h-screen flex flex-col font-inter bg-richblack-900">
@@ -94,6 +94,15 @@ function App() {
                   <Route path="/dashboard/cart" element={<Cart />} />
                 </>
           )}
+           {
+        user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
+          <>
+          <Route path="dashboard/add-course" element={<AddCourse />} />
+          
+          </>
+        )
+      }
+
 
          </Route>
 
