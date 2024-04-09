@@ -37,7 +37,7 @@ function Navbar() {
             <div>
                 <ul className='flex gap-x-6 text-richblack-25'>
                     {
-                        NavbarLinks.map((ele,idx)=>{
+                        NavbarLinks?.map((ele,idx)=>{
                             return(
                                 <li key={idx}>
                                     {
@@ -50,8 +50,8 @@ function Navbar() {
                                                 <div className=' absolute left-[57.5%] top-[-9px] h-6 w-6 rotate-45 bg-richblack-5 rounded'>
                                                 </div>
                                                 {
-                                                    subLinks.length? (
-                                                        subLinks.map((ele,idx)=>(
+                                                    subLinks?.length? (
+                                                        subLinks?.map((ele,idx)=>(
                                                          <Link key={idx} to={`/catalog/${ele.name.toLowerCase().split(" ").join("-")}`}
                                                          className='rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50'>
                                                            <p> {ele.name} </p>
