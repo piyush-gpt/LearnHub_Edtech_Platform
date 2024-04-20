@@ -20,6 +20,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUserDetails } from "./services/operations/profileAPI";
 import { ACCOUNT_TYPE } from "./utils/constants";
+import MyCourses from "./components/core/Dashboard/MyCourses";
+import EditCourse from "./components/core/Dashboard/EditCourse/EditCourse";
 function App() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -94,14 +96,18 @@ function App() {
                   <Route path="/dashboard/cart" element={<Cart />} />
                 </>
           )}
-           {
+             {
         user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
           <>
+          {/* <Route path="dashboard/instructor" element={<Instructor />} /> */}
           <Route path="dashboard/add-course" element={<AddCourse />} />
+          <Route path="dashboard/my-courses" element={<MyCourses />} />
+          <Route path="dashboard/edit-course/:courseId" element={<EditCourse />} />
           
           </>
         )
       }
+
 
 
          </Route>

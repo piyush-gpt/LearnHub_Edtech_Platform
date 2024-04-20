@@ -7,7 +7,7 @@ const courseSchema=new mongoose.Schema({
     courseDescription:{
         type:String,
     },
-    Instructor:{
+    instructor:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
         required:true,
@@ -45,6 +45,13 @@ const courseSchema=new mongoose.Schema({
     status: {
 		type: String,
 		enum: ["Draft", "Published"],
+	},
+    instructions:{
+        type:[String]
+    },
+    createdAt: {
+		type:Date,
+		default:Date.now
 	},
 
 })

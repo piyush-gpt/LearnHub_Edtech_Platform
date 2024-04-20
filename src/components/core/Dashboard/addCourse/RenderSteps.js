@@ -2,6 +2,8 @@ import React from 'react'
 import { FaCheck } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import CourseInformation from './CourseInformation/CourseInformation';
+import CourseBuilder from './CourseBuilder/CourseBuilder';
+import PublishCourse from './PublishCourse/PublishCourse';
 
 function RenderSteps() {
     const {step} = useSelector((state)=> state.course);
@@ -23,27 +25,29 @@ function RenderSteps() {
 
   return (
     <div>
-        <div className=' flex items-center'>
+        <div className=' flex items-center ml-10 text-richblack-5'>
         {steps.map((item)=>(
             <div className=' flex items-center'>
-            <div className={`${step===item.id ? " bg-yellow-900 border-yellow-50 text-yellow-50":" bg-richblack-800 border-richblack-700 text-richblack-300"}`}>
+            <div className={`${step===item.id ? " bg-yellow-900 border-yellow-50 text-yellow-50  w-16 h-16 rounded-full flex justify-center items-center border-2 border-solid":" w-16 h-16 rounded-full bg-richblack-800 border-richblack-700 text-richblack-300 flex justify-center items-center"}`}>
                 {step>item.id? <FaCheck/> : (item.id)}
             </div>
-            {item.id!==3?(<span>------------------</span>):("")}
+            {item.id!==3?(<span> - - - - - - - - - - - - - - - - -</span>):("")}
             
             </div>
         ))}
         </div>
-        <div className=' flex items-center gap-5'>
-            {steps.map((item) => (
+        <div className=' flex items-center gap-28 mb-10'>
+            {steps.map((item,idx) => (
                 <>
                     <div>
-                        <p>{item.title}</p>
+                        <p className={`${idx==step-1?(' text-white'):(' text-richblack-800 font-bold')}`}>{item.title}</p>
                     </div>
                 </>
             ))}
         </div>
         {step==1 && <CourseInformation/>}
+        {step==2 && <CourseBuilder/>}
+        {step==3 && <PublishCourse/>}
     </div>
   )
 }
