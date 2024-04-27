@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { VscSignOut } from "react-icons/vsc";
 import ConfirmationModal from '../../Common/ConfirmationModal'
 
-function Sidebar() {
+function Sidebar({small}) {
   const [confirmationModal,setConfirmationModal]=useState(null);
   const dispatch=useDispatch();
   const navigate=useNavigate();
@@ -22,7 +22,7 @@ function Sidebar() {
 }
   return (
     <div>
-    <div className=' flex flex-col min-w-[222px] border-r-[1px] border-r-richblack-900 h-[calc(100vh-3.5rem)] bg-richblack-800 py-10'>
+    <div className=' flex flex-col lg:min-w-[222px]  border-r-[1px] border-r-richblack-900 lg:h-[calc(100vh-3.5rem)] bg-richblack-800 lg:py-10 text-white'>
       <div className=' flex flex-col gap-1 '>
         {
           sidebarLinks.map((link)=>{
@@ -39,14 +39,14 @@ function Sidebar() {
       <div className=' flex flex-col'>
         <SidebarLink link={{name:"Settings", path:"dashboard/settings"}} iconName={"VscSettingsGear"}/>
 
-        <button onClick={()=> setConfirmationModal({
+        <button onClick={()=> !small?setConfirmationModal({
           text1:"Are You Sure ?",
           text2:"You will be logged out of your account",
           btn1Text:"Logout",
           btn2Text:"Cancel",
           btn1Handler:()=> dispatch(logout(navigate)),
           btn2Handler:()=> setConfirmationModal(null)
-        })} className=' font-medium text-sm text-richblack-300 w-full justify-center px-8 py-2'>
+        }):dispatch(logout(navigate))} className=' font-medium text-sm text-richblack-300 w-full justify-center px-8 py-2'>
           <div className=' flex items-center gap-x-2 text-richblack-300'>
             <VscSignOut/>
             <span>

@@ -1,4 +1,4 @@
-const  {OTP } =require("../models/OTP");
+const  {OTP} =require("../models/OTP");
 const {User}= require("../models/User");
  const{ Profile }= require( "../models/Profile");
 const otpGenerator=require("otp-generator");

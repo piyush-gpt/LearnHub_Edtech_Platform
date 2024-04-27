@@ -32,7 +32,7 @@ function ExploreMore() {
         <div className="text-center text-richblack-300 text-lg font-semibold">
              Learn to Build Anything You Can Imagine
         </div>
-        <div className='text-[16px] flex items-center rounded-full bg-richblack-800 px-1 py-1 mb-44'>
+        <div className='text-[16px] md:flex items-center rounded-full bg-richblack-800 px-1 py-1 lg:mb-44 hidden mb-10'>
             {
                 tablename.map((ele,idx)=>{
                     return (
@@ -44,12 +44,12 @@ function ExploreMore() {
                 })
             }
         </div>
-        <div className=' flex gap-10 items-center absolute lg:bottom-[0] lg:left-[50%] lg:translate-x-[-50%] lg:translate-y-[50%] w-[100%] justify-center '>
+        <div className=' flex gap-10 flex-wrap items-center lg:absolute lg:bottom-[0] lg:left-[50%] lg:translate-x-[-50%] lg:translate-y-[50%] w-[100%] justify-center mb-10 lg:mb-0 sm:p-3 lg:p-0'>
             {
                 courses.map((ele,idx)=>{
                     return(
-                        <div onClick={()=>changeHeading(ele)} key={idx} className={`${currCard===ele.heading?" bg-white shadow-[12px_12px] shadow-yellow-50":" bg-richblack-800"} cursor-pointer text-richblack-200  w-[30%] h-[250px] 
-                        flex flex-col justify-between p-2`}>
+                        <div onClick={()=>changeHeading(ele)} key={idx} className={`${currCard===ele.heading?" bg-white shadow-[12px_12px] shadow-yellow-50":" bg-richblack-800"} cursor-pointer text-richblack-200  w-[360px] lg:w-[30%]
+                        flex flex-col justify-between p-2 `}>
                             <div className=' border-b-[2px] border-richblack-400 border-dashed h-[75%] p-4'>
                                 <p className={`${currCard===ele.heading?"text-richblack-900":"text-richblack-25"} text-[20px] font-semibold mb-3`}>
                                     {ele.heading}

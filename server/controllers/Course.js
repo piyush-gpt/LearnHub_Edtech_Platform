@@ -5,6 +5,7 @@ const {Section}=require("../models/Section")
 const {SubSection}=require("../models/SubSection")
 const {CourseProgress}=require("../models/CourseProgress")
 const  {uploadImageToCloudinary}  =require( "../utils/imageUploader");
+const { convertSecondsToDuration } = require("../utils/secToDuration")
 require("dotenv").config();
 
 
@@ -34,6 +35,20 @@ exports.editCourse = async (req, res) => {
         if (updates.hasOwnProperty(key)) {
           if (key === "tag" || key === "instructions") {
             course[key] = JSON.parse(updates[key])
+          }
+          else if(key=="category"){
+            let currCat=course[key];
+            await Category.findByIdAndUpdate(currCat,{
+              $pull:{
+                course:courseId
+              }
+            })
+           await Category.findByIdAndUpdate(updates[key],{
+              $push:{
+                course:courseId
+              }
+            })
+            course[key] = updates[key]
           } else {
             course[key] = updates[key]
           }
@@ -174,7 +189,7 @@ exports.createCourse = async (req, res) => {
       { _id: category },
       {
         $push: {
-          courses: newCourse._id,
+          course: newCourse._id,
         },
       },
       { new: true }
@@ -225,8 +240,8 @@ exports. getCourseDetails=async(req,res)=>{
     try{
         const {courseId}= req.body;
 
-        const courseDetails=await Course.find({_id:courseId}).populate({
-            path:"Instructor",
+        const courseDetails=await Course.findOne({_id:courseId}).populate({
+            path:"instructor",
             populate:{
                 path:"additionalDetails"
             },
@@ -245,11 +260,20 @@ exports. getCourseDetails=async(req,res)=>{
                 message:`could not find the course with id:${courseId}`
             })
         }
-
+        let totalDurationInSeconds = 0
+        courseDetails.courseContent.forEach((content) => {
+          content.subSection.forEach((subSection) => {
+            const timeDurationInSeconds = parseInt(subSection.timeDuration)
+            totalDurationInSeconds += timeDurationInSeconds
+          })
+        })
+    
+        const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
         return res.status(200).json({
             success:true,
             message:"Course details fetch successfully",
-            courseDetails
+            courseDetails,
+            totalDuration
         })
 
     }
@@ -265,6 +289,8 @@ exports.getFullCourseDetails = async (req, res) => {
   try {
     const { courseId } = req.body
     const userId = req.user.id
+
+    const user=await User.findById(userId);
     const courseDetails = await Course.findOne({
       _id: courseId,
     })
@@ -284,11 +310,16 @@ exports.getFullCourseDetails = async (req, res) => {
       })
       .exec()
 
+      if(user.accountType==="Student" && !courseDetails.studentsEnrolled.includes(userId)){
+        return res.status(400).json({
+          success:false,
+          message:"Student not enrolled"
+        })
+      }
     let courseProgressCount = await CourseProgress.findOne({
       courseID: courseId,
       userId: userId,
     })
-
 
     if (!courseDetails) {
       return res.status(400).json({
@@ -312,7 +343,7 @@ exports.getFullCourseDetails = async (req, res) => {
       })
     })
 
-    // const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+    const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
 
     return res.status(200).json({
       success: true,
@@ -375,7 +406,12 @@ exports.deleteCourse = async (req, res) => {
         $pull: { courses: courseId },
       })
     }
-
+    // removing course from category
+    await Category.findByIdAndUpdate(course.category,{
+      $pull:{
+        course:courseId
+      }
+    })
     // Delete sections and sub-sections
     const courseSections = course.courseContent
     for (const sectionId of courseSections) {

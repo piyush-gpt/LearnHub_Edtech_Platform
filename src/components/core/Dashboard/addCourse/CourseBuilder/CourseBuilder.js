@@ -149,7 +149,7 @@ export default function CourseBuilderForm() {
         >
           Back
         </button>
-        <IconBtn disabled={loading} text="Next" onclick={goToNext} customClasses={" flex items-center gap-2  p-2 border rounded-md border-yellow-50 text-yellow-50"}>
+        <IconBtn disabled={loading} text="Next" onclick={goToNext} customClasses={" flex items-center gap-2  p-2 border rounded-md border-yellow-50 text-richblack-900"}>
           <MdNavigateNext />
         </IconBtn>
       </div>

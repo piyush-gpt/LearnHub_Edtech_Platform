@@ -6,7 +6,7 @@ import {
   fetchCourseDetails,
   getFullDetailsOfCourse,
 } from "../../../../services/operations/courseDetailsAPI"
-import { setCourse, setEditCourse } from "../../../../reducers/Slices/courseSlice"
+import { setCourse, setEditCourse, setRealEditCourse } from "../../../../reducers/Slices/courseSlice"
 import RenderSteps from "../addCourse/RenderSteps"
 
 export default function EditCourse() {
@@ -23,6 +23,7 @@ export default function EditCourse() {
       if (result?.courseDetails) {
         dispatch(setEditCourse(true))
         dispatch(setCourse(result?.courseDetails))
+        dispatch(setRealEditCourse(true))
       }
       setLoading(false)
     }

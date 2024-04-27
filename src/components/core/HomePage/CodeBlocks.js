@@ -4,21 +4,21 @@ import { FaArrowRight } from 'react-icons/fa'
 import { TypeAnimation } from 'react-type-animation'
 function CodeBlocks({position , heading , subheading , btn1, btn2, codeblock, backgroundGradient, codecolour}) {
   return (
-    <div className={`flex ${position} my-20 justify-between`}>
-        <div className=' w-[50%] flex flex-col gap-8'>
+    <div className={` lg:flex ${position} my-20 justify-between flex flex-col gap-5 `}>
+        <div className=' lg:w-[50%] flex flex-col gap-8'>
             {heading}
-            <div className=' text-richblack-300 font-bold text-base w-[85%] '>
+            <div className=' text-richblack-300 font-bold text-base lg:w-[85%] '>
                 {subheading}
             </div>
-            <div className='flex gap-7 mt-7'>
+            <div className='flex gap-7 mt-7 mb-10 lg:mb-0'>
                 <Button active={btn1.active} linkto={btn1.linkto}>
-                    <div className='flex gap-4 items-center'>
+                    <div className='flex gap-4 items-center text-sm md:text-lg'>
                         <p>{btn1.btnText}</p>
                         <FaArrowRight/>
                     </div>
                 </Button>
-                <Button active={btn2.active} linkto={btn2.linkto}>
-                        <p>{btn2.btnText}</p>
+                <Button active={btn2.active} linkto={btn2.linkto} >
+                        <p className=' text-sm md:text-lg'>{btn2.btnText}</p>
                 </Button>
 
             </div>

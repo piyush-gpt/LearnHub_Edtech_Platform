@@ -16,6 +16,7 @@ import compare_with_others from "../assets/Images/Compare_with_others.png"
 import plan_your_lessons from "../assets/Images/Plan_your_lessons.png"
 import Instructor from "../assets/Images/Instructor.png"
 import ExploreMore from '../components/core/HomePage/ExploreMore';
+import ReviewSlider from '../components/Common/ReviewSlider';
 
 const timeline=[
     {
@@ -130,24 +131,24 @@ function Home() {
                     </div>
                     <div className=' flex items-center gap-20 justify-center'>
                         <Button active={true} linkto={"/signup"}>
-                            <div className='flex gap-4 items-center'>
+                            <div className='flex gap-4 items-center md:text-lg text-sm '>
                                 Explore Full Catelog
                                 <FaArrowRight/>
                             </div>
                         </Button>
                        
                         <Button active={false} linkto={"/login"}>
-                            Lern More
+                            <p className=' text-sm md:text-lg'>Learn More</p>
                         </Button>
                     </div>
                 </div>
             </div>
             <div className=' w-11/12 mx-auto flex flex-col items-center gap-7 justify-between mt-28 mb-20'>
-                <div className=' flex gap-5 justify-between'>
-                    <p className='w-[45%] text-4xl font-bold'>
+                <div className=' lg:flex lg:flex-row gap-5 justify-between flex flex-col '>
+                    <p className='lg:w-[45%] text-4xl font-bold'>
                     Get the skills you need for a<HighlightText text={"job that is in demand."}/>
                     </p>
-                    <div className='w-[40%]'>
+                    <div className='lg:w-[40%]'>
                         <p className=' mb-10'>
                         The modern LearnHub is the dictates its own terms. Today, to be a competitive specialist requires more than professional skills.
                         </p>
@@ -159,8 +160,8 @@ function Home() {
 
                 {/* time line section */}
                 <div className=' mt-20'>
-                    <div className=' flex gap-20 items-start justify-between'>
-                        <div className=' flex flex-col w-[40%] gap-3'>
+                    <div className=' lg:flex lg:flex-row gap-20 lg:items-start justify-between flex flex-col'>
+                        <div className=' flex flex-col lg:w-[40%] lg:gap-3 gap-10'>
                             {
                                 timeline.map((ele,idx)=>{
                                     return (
@@ -185,11 +186,11 @@ function Home() {
                                 })
                             }
                         </div>
-                        <div className=' w-[60%] relative shadow-[10px_-5px_50px] shadow-blue-200'>
+                        <div className=' lg:w-[60%] relative shadow-[10px_-5px_50px] shadow-blue-200'>
                             <img src={timeLineImg} className=' shadow-[20px_20px_rgba(255,255,255)]'/>
 
-                            <div className=' py-5 absolute bg-caribbeangreen-700 flex text-white uppercase left-[50%] translate-x-[-50%] translate-y-[-50%] px-10'>
-                                <div className=' flex gap-5 items-center border-r border-caribbeangreen-300 px-7'>
+                            <div className=' py-5 absolute bg-caribbeangreen-700 lg:flex lg:flex-row flex flex-col text-white uppercase lg:left-[50%] lg:translate-x-[-50%] lg:translate-y-[-50%] px-10 top-0 left-0 lg:top-[100%]'>
+                                <div className=' flex gap-5 items-center lg:border-r border-caribbeangreen-300 px-7'>
                                     <p className=' text-3xl font-bold'>10</p>
                                     <p className=' text-caribbeangreen-300 text-sm'>Years of Experience</p>
                                     <p></p>
@@ -216,10 +217,10 @@ function Home() {
                     Using spin making learning multiple languages easy. with 20+ languages realistic voice-over, progress tracking, custom schedule and more.
                     </div>
 
-                    <div className=' flex items-center justify-center mt-5 relative'>
-                        <img src={know_your_progress} alt="KnowyourProgressImage"className=' object-contain relative left-[154px]'/>
-                        <img src={compare_with_others}alt="CompareWithOthersImage" className=' object-contain relative left-[30px]'/>
-                        <img src={plan_your_lessons} alt='PlanYourLessonsImage' className=' object-contain relative right-[128px]'/>
+                    <div className=' flex lg:flex-row flex-col items-center justify-center mt-5 relative'>
+                        <img src={know_your_progress} alt="KnowyourProgressImage"className=' object-contain relative lg:left-[154px]'/>
+                        <img src={compare_with_others}alt="CompareWithOthersImage" className=' object-contain relative lg:left-[30px]'/>
+                        <img src={plan_your_lessons} alt='PlanYourLessonsImage' className=' object-contain relative lg:right-[128px]'/>
                     </div>
                     <div className=' w-40 '>
                         <Button active={true} linkto={"/signup"}>Learn More</Button>
@@ -230,15 +231,15 @@ function Home() {
 
         {/* section 3  */}
         <div className=' text-white mx-auto flex flex-col w-11/12 items-center mt-16'>
-            <div  className=' flex gap-24 items-center '>
-                <div className=' w-[50%]'>
+            <div  className=' flex lg:flex-row flex-col gap-24 lg:items-center '>
+                <div className=' lg:w-[50%]'>
                     <img  className="shadow-[-20px_-20px_rgba(255,255,255)]" src={Instructor}/>
                 </div>
-                <div className='w-[50%] flex flex-col items-start gap-10'>
-                    <p className=' text-4xl font-semibold w-[50%]'>
+                <div className='lg:w-[50%] flex flex-col items-start gap-10'>
+                    <p className=' text-4xl font-semibold lg:w-[50%]'>
                         Become an<HighlightText text={"Instructor"}/>
                     </p>
-                    <p className='font-medium text-richblack-300 w-[80%]'>
+                    <p className='font-medium text-richblack-300 lg:w-[80%]'>
                     Instructors from around the world teach millions of students on StudyNotion. We provide the tools and skills to teach what you love.
                     </p>
                     <Button active={true} linkto={"/signup"}>
@@ -249,6 +250,8 @@ function Home() {
                 </Button>
                 </div>
             </div>
+            <h2 className=" text-center text-4xl font-semibold mt-20">review from Other Learners</h2>
+            <ReviewSlider/>
         </div>
     </>
   )

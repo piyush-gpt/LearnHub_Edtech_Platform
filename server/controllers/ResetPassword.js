@@ -27,7 +27,7 @@ exports. resetPasswordToken=async(req,res)=>{
 
     const otpPayload={email,otp};
     //create entry for otp
-    const otpBody=OTP.create(otpPayload);
+    const otpBody=await OTP.create(otpPayload);
 
     await mailSender(email,"OTP for password reset",`password reset OTP:${otp} (valid for 5 min)`);
 

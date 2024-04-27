@@ -5,6 +5,7 @@ const initialState = {
   course: null,
   editCourse: false,
   paymentLoading: false,
+  realEditCourse:false
 }
 
 const courseSlice = createSlice({
@@ -20,6 +21,9 @@ const courseSlice = createSlice({
     setEditCourse: (state, action) => {
       state.editCourse = action.payload
     },
+    setRealEditCourse:(state,action)=>{
+      state.realEditCourse=action.payload
+    },
     setPaymentLoading: (state, action) => {
       state.paymentLoading = action.payload
     },
@@ -27,6 +31,7 @@ const courseSlice = createSlice({
       state.step = 1
       state.course = null
       state.editCourse = false
+      state.realEditCourse=false
     },
   },
 })
@@ -35,6 +40,7 @@ export const {
   setStep,
   setCourse,
   setEditCourse,
+  setRealEditCourse,
   setPaymentLoading,
   resetCourseState,
 } = courseSlice.actions
