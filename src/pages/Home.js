@@ -240,7 +240,7 @@ function Home() {
                         Become an<HighlightText text={"Instructor"}/>
                     </p>
                     <p className='font-medium text-richblack-300 lg:w-[80%]'>
-                    Instructors from around the world teach millions of students on StudyNotion. We provide the tools and skills to teach what you love.
+                    Instructors from around the world teach millions of students on learnhub. We provide the tools and skills to teach what you love.
                     </p>
                     <Button active={true} linkto={"/signup"}>
                     <div className='flex gap-4 items-center'>
