@@ -21,8 +21,8 @@ app.use(express.json());
 app.use(cookieparser());
 app.use(
     cors({
-        origin: ["https://learn-hub-edtech-platform.vercel.app"],
-		credentials: true,
+        origin:"*",
+        credentials:true,
     })
 )
 app.use(fileupload({
