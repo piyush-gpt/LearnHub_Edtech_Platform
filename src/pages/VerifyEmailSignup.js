@@ -25,14 +25,14 @@ function VerifyEmailSignup() {
     <div className=' text-richblack-300 flex items-center justify-center h-screen'>
         {
             loading?(<div> Loading</div>):(
-                <div className=' flex items-center justify-center flex-col gap-7 w-[50%]'>
+                <div className=' flex items-center justify-center flex-col gap-7 lg:w-[50%] w-full'>
                     <h1 className=' text-richblack-25 text-center text-4xl font-semibold'>
                         Verify Email
                     </h1>
                     <p className=' w-[50%]'>
                     A verification code has been sent to you. Enter the code below
                     </p>
-                    <form onSubmit={handleSubmit} className=' w-1/2'>
+                    <form onSubmit={handleSubmit} className=' md:w-1/2 w-full p-10 md:p-0'>
                         <OtpInput
                              value={otp}
                              onChange={setOtp}
@@ -49,8 +49,8 @@ function VerifyEmailSignup() {
                         </button>
                         
                     </form>
-                    <div className=' w-[50%] text-white flex items-center justify-between'>
-                        <div className=' flex gap-2 items-center justify-center'>
+                    <div className=' md:w-[50%] w-full text-white flex items-center md:justify-between justify-around'>
+                        <div className=' flex gap-2 items-center justify-center '>
                         <FaLongArrowAltLeft/>
                         <Link to={"/login"}>Back to Login</Link>
                         </div>

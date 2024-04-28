@@ -47,9 +47,9 @@ function ForgotPassword(){
     <div className='h-screen'>
         {loading?(<div className=' h-screen flex items-center justify-center text-richblack-300'><p>loading.......</p></div>):(
             <div className=' flex flex-col items-center gap-6 justify-center h-screen'>
-            <p className=' text-white text-4xl font-semibold'>Reset your password</p>
-            <p className=' text-richblack-25'>We will be sending an OTP to your mail </p>
-      <form onSubmit={handleOnSubmit} className="flex w-[30%] flex-col gap-y-4 items-center justify-center">
+            <p className=' text-white text-4xl font-semibold text-center'>Reset your password</p>
+            <p className=' text-richblack-25 text-center'>We will be sending an OTP to your mail </p>
+      <form onSubmit={handleOnSubmit} className="flex lg:w-[30%] w-full flex-col gap-y-4 items-center justify-center lg:p-0 p-5">
         
         <label className=" w-full">
           <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
